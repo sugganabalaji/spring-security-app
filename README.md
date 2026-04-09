@@ -68,7 +68,7 @@ Check the console logs for a line like:
     |-------------------|----------|-------------------------------|
     | Default (console) | user     | Generated at startup (see log)|
 ```
-(You can configure these in `application.yaml`.)
+(You can configure these in `application.yaml` or via `UserDetailsService`.)
 
 ### Custom Credentials
 To set your own credentials, add the following to `application.yaml`:
