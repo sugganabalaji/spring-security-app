@@ -6,3 +6,9 @@ spring:
     user:
       name: admin
       password: admin123
+
+server:
+  reactive:
+    session:
+      cookie:
+        same-site: strict
