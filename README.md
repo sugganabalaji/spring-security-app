@@ -46,15 +46,41 @@ Built with modern practices using **Spring DevTools**, **Spring Web**, and **Spr
 - Login: `http://localhost:8080/login`
 
 ---
+## 🔑 Default Login
 
+When the application starts, Spring Security generates a random password for the `user` account.  
+Check the console logs for a line like:
+
+- Using generated security password: `25da3012-10b1-43ed-8e0c-fabf34feab6c`
+
+
+- **Username:** `user`
+- **Password:** (auto-generated, see console output)
+
+---
 ## 🔑 Default Credentials
 
-| Role   | Username | Password |
-|--------|----------|----------|
-| USER   | user     | password |
-| ADMIN  | admin    | admin123 |
+- **Show both options**: mention the auto-generated password *and* how to override it.
+- **Use a table** for clarity:
 
-(You can configure these in `application.properties` or via `UserDetailsService`.)
+```markdown
+    | Mode              | Username | Password                      |
+    |-------------------|----------|-------------------------------|
+    | Default (console) | user     | Generated at startup (see log)|
+```
+(You can configure these in `application.yaml`.)
+
+### Custom Credentials
+To set your own credentials, add the following to `application.yaml`:
+
+```properties
+    spring:
+        security:
+            user:
+                name: admin
+                password: admin123
+```
+This overrides the random password and makes login predictable.
 
 ---
 
