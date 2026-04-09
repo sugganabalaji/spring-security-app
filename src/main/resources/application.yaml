@@ -7,8 +7,21 @@ spring:
       name: admin
       password: admin123
 
+  datasource:
+    url: jdbc:postgresql://localhost:5432/Dev
+    username: postgres
+    password: root
+    hikari:
+      auto-commit: false
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
 server:
   reactive:
     session:
       cookie:
         same-site: strict
+
+

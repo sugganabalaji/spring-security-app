@@ -1,0 +1,1 @@
+create table users (user_id integer primary key, user_name text, password text, granted_authority text);
