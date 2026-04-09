@@ -98,9 +98,69 @@ src/
  ```
 ---
 
+## 🔧 Steps to Add CSRF Token in Postman
+### 1. Login or fetch the token
+- Send a `GET` request to your login page or any endpoint that returns the CSRF token.
+- Spring Security usually exposes it as a cookie (`XSRF-TOKEN`) or inside the HTML form as a hidden field.
+## 2. Extract the token
+- In Postman, check the Cookies tab after the request.
+- Look for `XSRF-TOKEN` or `_csrf` in the response.
+- Add the token to your request
+- In your next request (e.g., POST to /students), add a header:
+`X-CSRF-TOKEN: <token-value>`
+- Or, if your app expects `_csrf` as a form field, include it in the request body.
+- Use Postman’s cookie handling
+- Postman automatically stores cookies from responses.
+- Ensure “`Enable cookie management`” is turned on so the CSRF cookie is sent with sub-sequent requests.
+
+### 📖 Example
+**Step 1**: Get CSRF Token
+```
+    GET http://localhost:8080/csrf-token
+```
+Response headers/cookies:
+- Set-Cookie: XSRF-TOKEN=generated-csrf-token; Path=/
+
+**Step 2**: Use Token in POST Request
+```
+    POST http://localhost:8080/students
+```
+
+**Headers:**
+- Content-Type: application/json
+- X-CSRF-TOKEN: generated-csrf-token
+```
+Body:
+    {
+        "id": 3,
+        "name": "Balaji",
+        "tech": "Spring security"
+    }
+```
+
+## 🔒 CSRF Protection
+
+This app uses Spring Security’s CSRF protection.  
+When testing with Postman:
+
+1. Send a `GET` request to `/login` or `/csrf-token` to retrieve the CSRF token.
+2. Copy the `_csrf` from the response cookies.
+3. Add it to your request headers:
+
+
+X-CSRF-TOKEN: <token-value>
+
+Without this token, POST/PUT/DELETE requests will be rejected with `403 Forbidden`.
+
+When working with Spring Security and testing APIs in Postman, you’ll often need to include the CSRF token if your app has CSRF protection enabled. By default, Spring Security requires this token for any state‑changing requests (POST, PUT, DELETE).
+
+
 ## 📖 Learning Highlights
 - How to secure REST endpoints with Spring Security
 - Configuring in‑memory authentication
+- Configuring HTTP Basic and Form Login
+- Securing endpoints with Spring Security
+- Using Spring Web for RESTful APIs
 - Using DevTools for rapid development
 - Building a clean, recruiter‑ready Spring Boot project
  
